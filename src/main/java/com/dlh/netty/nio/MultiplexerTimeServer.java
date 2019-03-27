@@ -22,8 +22,6 @@ public class MultiplexerTimeServer implements Runnable {
 
     private Selector selector;
 
-    private ServerSocketChannel serverSocketChannel;
-
     private volatile boolean stop;
 
     /**
@@ -37,7 +35,7 @@ public class MultiplexerTimeServer implements Runnable {
             // 初始化多路复用器
             selector = Selector.open();
             // 打开serverSocketChannel
-            serverSocketChannel = ServerSocketChannel.open();
+            ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
             // 设置ServerSocketChannel为非阻塞
             serverSocketChannel.configureBlocking(false);
             // 绑定监听端口
@@ -73,12 +71,7 @@ public class MultiplexerTimeServer implements Runnable {
                         handleInput(selectionKey);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        if (selectionKey != null) {
-                            selectionKey.cancel();
-                            if (selectionKey.channel() != null) {
-                                selectionKey.channel().close();
-                            }
-                        }
+                        SocketUtil.closeSelectionKey(selectionKey);
                     }
                 }
             } catch (IOException e) {
@@ -108,7 +101,7 @@ public class MultiplexerTimeServer implements Runnable {
                 // 设置socket通道为非阻塞
                 sc.configureBlocking(false);
                 // 将新连接注册到Selector中
-                ssc.register(selector, SelectionKey.OP_READ);
+                sc.register(selector, SelectionKey.OP_READ);
             }
             // 读取channel中的数据
             if (selectionKey.isReadable()) {
@@ -117,10 +110,7 @@ public class MultiplexerTimeServer implements Runnable {
                 int readBytes = sc.read(readBuf);
                 // 大于0 读取到了数据 编解码
                 if (readBytes > 0) {
-                    readBuf.flip();
-                    byte[] bytes = new byte[readBuf.remaining()];
-                    readBuf.get(bytes);
-                    String str = new String(bytes, StandardCharsets.UTF_8);
+                    String str = SocketUtil.readBuff(readBuf);
                     System.out.println("the server receive order :" + str);
                     String talk = "QUERY TIME ORDER".equalsIgnoreCase(str) ?
                             new Date(System.currentTimeMillis()).toString() : "BAD ORDER";
@@ -140,11 +130,7 @@ public class MultiplexerTimeServer implements Runnable {
 
     private void doWrite(SocketChannel sc, String talk) throws IOException {
         if (null != talk && talk.trim().length() > 0) {
-            byte[] bytes = talk.getBytes();
-            ByteBuffer bf = ByteBuffer.allocate(bytes.length);
-            bf.put(bytes);
-            bf.flip();
-            sc.write(bf);
+            SocketUtil.writeBuf(talk, sc);
         }
 
     }
