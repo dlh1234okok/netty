@@ -60,6 +60,7 @@ public class AsyncTimeClientHandler implements Runnable, CompletionHandler<Void,
         ByteBuffer write = ByteBuffer.allocate(bytes.length);
         write.put(bytes);
         write.flip();
+        // 向服务器发送信息
         client.write(write, write, new CompletionHandler<Integer, ByteBuffer>() {
             @Override
             public void completed(Integer result, ByteBuffer bf) {
@@ -69,6 +70,7 @@ public class AsyncTimeClientHandler implements Runnable, CompletionHandler<Void,
                     client.write(bf, bf, this);
                 } else {
                     ByteBuffer read = ByteBuffer.allocate(1024);
+                    // 读取服务器响应信息
                     client.read(read, read, new CompletionHandler<Integer, ByteBuffer>() {
                         @Override
                         public void completed(Integer result, ByteBuffer bf) {

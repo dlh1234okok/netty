@@ -90,6 +90,7 @@ public class MultiplexerTimeServer implements Runnable {
 
     }
 
+    // 处理io 对消息进行编解码
     private void handleInput(SelectionKey selectionKey) throws IOException {
 
         if (selectionKey.isValid()) {

@@ -1,4 +1,4 @@
-package com.dlh.netty.io;
+package com.dlh.netty.bio;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -53,12 +53,14 @@ public class TimeClientHandler implements Runnable {
             e.printStackTrace();
         }
 
+        // 轮询多路复用器
         while (!stop) {
             try {
                 selector.select(1000);
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
                 Iterator<SelectionKey> iterator = selectionKeys.iterator();
                 SelectionKey key;
+                // 当有就绪的channel时
                 while (iterator.hasNext()) {
                     key = iterator.next();
                     iterator.remove();
@@ -88,14 +90,18 @@ public class TimeClientHandler implements Runnable {
     private void handlerInput(SelectionKey key) throws IOException {
         if (key.isValid()) {
             SocketChannel sc = (SocketChannel) key.channel();
+            // 判断是否处于连接状态
             if (key.isConnectable()) {
+                // 已经连接成功
                 if (sc.finishConnect()) {
                     sc.register(selector, SelectionKey.OP_READ);
                     doWrite(sc);
+                    // 连接失败停止服务
                 } else {
                     System.exit(1);
                 }
             }
+            // 判断SocketChannel是否可读
             if (key.isReadable()) {
                 ByteBuffer bf = ByteBuffer.allocate(1024);
                 int readBytes = sc.read(bf);

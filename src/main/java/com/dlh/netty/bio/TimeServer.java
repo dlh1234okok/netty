@@ -1,6 +1,5 @@
-package com.dlh.netty.io;
+package com.dlh.netty.bio;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
