@@ -15,7 +15,7 @@ import java.util.Set;
  * @author: dulihong
  * @date: 2019/3/26 15:51
  */
-public class TimeClientHandler implements Runnable {
+class TimeClientHandler implements Runnable {
 
     private String host;
 

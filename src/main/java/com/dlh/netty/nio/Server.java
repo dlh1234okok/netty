@@ -4,7 +4,7 @@ package com.dlh.netty.nio;
  * @author: dulihong
  * @date: 2019/3/26 14:55
  */
-public class Server {
+class Server {
 
     public static void main(String[] args) {
 

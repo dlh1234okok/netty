@@ -36,7 +36,7 @@ final class SocketUtil {
         ByteBuffer bf = ByteBuffer.allocate(bytes.length);
         bf.put(bytes);
         bf.flip();
-        System.out.println("return :"+msg);
+        System.out.println("return :" + msg);
         sc.write(bf);
         return bf;
     }

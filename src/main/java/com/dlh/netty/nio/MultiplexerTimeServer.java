@@ -18,7 +18,7 @@ import java.util.Set;
  * @author: dulihong
  * @date: 2019/3/26 13:40
  */
-public class MultiplexerTimeServer implements Runnable {
+class MultiplexerTimeServer implements Runnable {
 
     private Selector selector;
 

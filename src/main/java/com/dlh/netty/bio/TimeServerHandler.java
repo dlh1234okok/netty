@@ -11,11 +11,11 @@ import java.util.Date;
  * @author: dulihong
  * @date: 2019/3/25 15:08
  */
-public class TimeServerHandler implements Runnable {
+class TimeServerHandler implements Runnable {
 
     private Socket socket;
 
-    public TimeServerHandler(Socket socket) {
+    TimeServerHandler(Socket socket) {
         this.socket = socket;
     }
 
