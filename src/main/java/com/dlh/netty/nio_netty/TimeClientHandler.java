@@ -13,12 +13,16 @@ import java.nio.charset.StandardCharsets;
  */
 public class TimeClientHandler extends ChannelHandlerAdapter {
 
-    private final ByteBuf firstMsg;
+    // private final ByteBuf firstMsg;
+
+    byte[] req;
+
+    int count;
 
     public TimeClientHandler() {
-        byte[] req = "QUERY TIME ORDER".getBytes();
-        firstMsg = Unpooled.buffer(req.length);
-        firstMsg.writeBytes(req);
+        req = ("QUERY TIME ORDER" + System.getProperty("line.separator")).getBytes();
+        /*firstMsg = Unpooled.buffer(req.length);
+        firstMsg.writeBytes(req);*/
     }
 
 
@@ -30,15 +34,22 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(firstMsg);
+        ByteBuf bf = null;
+        for (int i = 0; i < 100; i++) {
+            bf = Unpooled.buffer(req.length);
+            bf.writeBytes(req);
+            ctx.writeAndFlush(bf);
+        }
+
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf bf = (ByteBuf) msg;
+        /*ByteBuf bf = (ByteBuf) msg;
         byte[] req = new byte[bf.readableBytes()];
         bf.readBytes(req);
-        String body = new String(req, StandardCharsets.UTF_8);
-        System.out.println("NOW IS :" + body);
+        String body = new String(req, StandardCharsets.UTF_8);*/
+        String body = (String) msg;
+        System.out.println("NOW IS :" + body + ++count);
     }
 }

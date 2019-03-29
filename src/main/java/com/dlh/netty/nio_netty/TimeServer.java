@@ -8,6 +8,12 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+
+import java.time.Instant;
+import java.util.Arrays;
 
 /**
  * @author: dulihong
@@ -49,6 +55,10 @@ public class TimeServer {
         @Override
         protected void initChannel(SocketChannel ch) {
 
+            // 添加以换行符为结束标志的解码器
+            ch.pipeline().addLast(new FixedLengthFrameDecoder(2));
+            // 将接收到的对象转换为字符串
+            ch.pipeline().addLast(new StringDecoder());
             ch.pipeline().addLast(new TimeServerHandler());
 
         }
@@ -57,7 +67,7 @@ public class TimeServer {
 
     public static void main(String[] args) {
 
-        int port = 8081;
+        int port = 8082;
 
         new TimeServer().bind(port);
     }

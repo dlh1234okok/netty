@@ -14,6 +14,7 @@ import java.util.Date;
  */
 class TimeServerHandler extends ChannelHandlerAdapter {
 
+    int count;
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -23,21 +24,24 @@ class TimeServerHandler extends ChannelHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-        ByteBuf bf = (ByteBuf) msg;
+        /*ByteBuf bf = (ByteBuf) msg;
         byte[] req = new byte[bf.readableBytes()];
         bf.readBytes(req);
-        String body = new String(req, StandardCharsets.UTF_8);
-        System.out.println("TIM SERVER RECEIVE ORDER:" + body);
+        String body = new String(req, StandardCharsets.UTF_8);*/
+        /*String body = (String) msg;
+        System.out.println("TIM SERVER RECEIVE ORDER:" + body + ++count);
         String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ?
                 new Date(System.currentTimeMillis()).toString() : "BAD ORDER";
+        currentTime = currentTime + System.getProperty("line.separator");
         ByteBuf buf = Unpooled.copiedBuffer(currentTime.getBytes());
-        ctx.write(buf);
+        ctx.writeAndFlush(buf);*/
+        System.out.println(msg);
     }
 
-    @Override
+   /* @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
-    }
+    }*/
 
 
 }
