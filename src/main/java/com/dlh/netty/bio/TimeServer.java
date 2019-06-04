@@ -10,7 +10,7 @@ import java.net.Socket;
 public class TimeServer {
 
     public static void main(String[] args) {
-        int port = 8081;
+        int port = 8080;
         if (args != null && args.length > 0) {
             try {
                 port = Integer.valueOf(args[0]);
@@ -35,7 +35,6 @@ public class TimeServer {
                 if (server != null) {
                     System.out.println("the  time server close...");
                     server.close();
-                    server = null;
                 }
             } catch (Exception e) {
                 e.printStackTrace();

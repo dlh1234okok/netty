@@ -1,4 +1,4 @@
-package com.dlh.netty.nio_netty;
+package com.dlh.netty.nio_netty.decoder;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
