@@ -17,10 +17,10 @@ import java.util.Map;
  */
 public class PostRequestParse implements RequestParser {
     @Override
-    public Map<String, Object> parse(HttpRequest request) {
+    public Map<String, Object> parse(FullHttpRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        //postDecoder.offer(request);
+        postDecoder.offer(request);
         List<InterfaceHttpData> bodyHttpDatas = postDecoder.getBodyHttpDatas();
         bodyHttpDatas.forEach(body -> {
             Attribute attribute = (Attribute) body;

@@ -11,6 +11,6 @@ import java.util.Map;
  */
 public interface RequestParser {
 
-    Map<String, Object> parse(HttpRequest request);
+    Map<String, Object> parse(FullHttpRequest request);
 
 }

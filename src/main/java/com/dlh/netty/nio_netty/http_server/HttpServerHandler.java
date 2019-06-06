@@ -29,9 +29,9 @@ public class HttpServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (msg instanceof HttpRequest) {
+        if (msg instanceof FullHttpRequest) {
 
-            HttpRequest httpRequest = (HttpRequest) msg;
+            FullHttpRequest httpRequest = (FullHttpRequest) msg;
 
             HttpMethod method = httpRequest.getMethod();
 
@@ -54,7 +54,7 @@ public class HttpServerHandler extends ChannelHandlerAdapter {
             fullHttpResponse.headers().set("Content-Length", Integer.toString(bytes.length));
             ctx.writeAndFlush(fullHttpResponse);
         } else {
-            throw new RequestException("not http connection");
+            throw new RequestException("not is http request");
         }
     }
 }

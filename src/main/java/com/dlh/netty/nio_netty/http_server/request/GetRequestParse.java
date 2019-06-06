@@ -14,7 +14,7 @@ import java.util.Map;
 public class GetRequestParse implements RequestParser {
 
     @Override
-    public Map<String, Object> parse(HttpRequest request) {
+    public Map<String, Object> parse(FullHttpRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         QueryStringDecoder qsd = new QueryStringDecoder(request.getUri());
         qsd.parameters().forEach((k, v) -> resultMap.put(k, v.get(0)));

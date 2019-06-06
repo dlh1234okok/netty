@@ -5,6 +5,9 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -30,8 +33,12 @@ public class HttpServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new HttpServerCodec());
+                            //pipeline.addLast(new HttpServerCodec());
+                            pipeline.addLast(new HttpRequestDecoder());
+                            pipeline.addLast(new HttpResponseEncoder());
+                            pipeline.addLast(new HttpObjectAggregator(1024 * 1024 * 64));
                             pipeline.addLast(new HttpServerHandler());
+
                         }
                     });
             ChannelFuture f = serverBootstrap.bind(port).sync();
