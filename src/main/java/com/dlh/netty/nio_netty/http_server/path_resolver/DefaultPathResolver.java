@@ -1,13 +1,12 @@
 package com.dlh.netty.nio_netty.http_server.path_resolver;
 
 import com.dlh.netty.common.exceptions.ResolverException;
-import com.dlh.netty.nio_netty.http_server.servlet.annotation.NettyController;
-import com.dlh.netty.nio_netty.http_server.servlet.annotation.Path;
+import com.dlh.netty.nio_netty.http_server.annotation.NettyController;
+import com.dlh.netty.nio_netty.http_server.annotation.Path;
 import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.net.URISyntaxException;
@@ -100,7 +99,6 @@ public class DefaultPathResolver implements PathResolverHandler {
     private File[] getResources() {
         try {
             File file = new File(Objects.requireNonNull(classLoader.getResource(BASE_PACKAGE.replace(".", "/"))).toURI());
-            System.out.println("+===" + Arrays.toString(file.listFiles()));
             return file.listFiles(pathname -> pathname.getName().endsWith(".class"));
         } catch (URISyntaxException e) {
             throw new ResolverException("uri resolver error");

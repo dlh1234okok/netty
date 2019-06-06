@@ -1,7 +1,7 @@
 package com.dlh.netty.nio_netty.http_server.resources;
 
-import com.dlh.netty.nio_netty.http_server.servlet.annotation.NettyController;
-import com.dlh.netty.nio_netty.http_server.servlet.annotation.Path;
+import com.dlh.netty.nio_netty.http_server.annotation.NettyController;
+import com.dlh.netty.nio_netty.http_server.annotation.Path;
 
 /**
  * @author: dulihong
@@ -13,7 +13,6 @@ public class TestController {
 
     @Path("t1")
     public String test(String t) {
-        System.out.println(t);
         return t;
     }
 
