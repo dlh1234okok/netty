@@ -13,4 +13,5 @@ public interface RequestParser {
 
     Map<String, Object> parse(FullHttpRequest request);
 
+    String uriParse(String uri);
 }

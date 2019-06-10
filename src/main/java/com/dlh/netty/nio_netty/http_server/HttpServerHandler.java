@@ -40,15 +40,14 @@ public class HttpServerHandler extends ChannelHandlerAdapter {
                 throw new RequestException("the request method can not discern");
             }
             Map<String, Object> params = requestParser.parse(httpRequest);
-
             PathResolverHandler pathResolverHandler = new DefaultPathResolver();
             pathResolverHandler.setRequestParams(params);
-            pathResolverHandler.setRequestUri(httpRequest.getUri().split("\\?")[0]);
+            pathResolverHandler.setRequestUri(requestParser.uriParse(httpRequest.getUri()));
             Object result = pathResolverHandler.execute();
 
             String responseHtml = JSON.toJSONString(result);
-            byte[] bytes = responseHtml.getBytes(StandardCharsets.UTF_8);
 
+            byte[] bytes = responseHtml.getBytes(StandardCharsets.UTF_8);
             FullHttpResponse fullHttpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(bytes));
             fullHttpResponse.headers().set("Content-Type", "application/json; charset=utf-8");
             fullHttpResponse.headers().set("Content-Length", Integer.toString(bytes.length));

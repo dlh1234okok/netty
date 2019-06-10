@@ -1,6 +1,5 @@
 package com.dlh.netty.nio_netty.http_server.response;
 
-import io.netty.handler.codec.http.HttpHeaders;
 
 /**
  * @author: dulihong

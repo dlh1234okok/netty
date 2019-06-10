@@ -13,7 +13,10 @@ public class TestController {
 
     @Path("t1")
     public String test(String t) {
-        return t;
+        return "test1" + t;
     }
-
+    @Path("t2")
+    public String test2(Integer a) {
+        return "test2" + a;
+    }
 }

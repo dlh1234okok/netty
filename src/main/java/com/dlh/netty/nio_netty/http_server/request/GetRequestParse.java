@@ -21,4 +21,9 @@ public class GetRequestParse implements RequestParser {
         return resultMap;
     }
 
+    @Override
+    public String uriParse(String uri) {
+        return uri.split("\\?")[0];
+    }
+
 }

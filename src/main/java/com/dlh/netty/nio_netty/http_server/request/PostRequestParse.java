@@ -32,4 +32,9 @@ public class PostRequestParse implements RequestParser {
         });
         return resultMap;
     }
+
+    @Override
+    public String uriParse(String uri) {
+        return uri;
+    }
 }

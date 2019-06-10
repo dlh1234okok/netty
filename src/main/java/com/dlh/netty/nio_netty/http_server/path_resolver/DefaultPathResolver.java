@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author: dulihong
  * @date: 2019/6/6 14:35
  */
-public class DefaultPathResolver implements PathResolverHandler {
+public class DefaultPathResolver implements PathResolverHandler{
 
     private String BASE_PACKAGE = "com.dlh.netty.nio_netty.http_server.resources";
 
@@ -58,6 +58,9 @@ public class DefaultPathResolver implements PathResolverHandler {
                 for (Annotation method : methodAnnotations) {
                     if (method instanceof Path) {
                         String value = ((Path) method).value();
+                        if (!value.equals(requestUri.split("/")[2])) {
+                            continue;
+                        }
                         if (!value.startsWith("/")) {
                             value = "/" + value;
                         }
@@ -66,6 +69,7 @@ public class DefaultPathResolver implements PathResolverHandler {
                             requestController.put(path.toString(), resource);
                             invokeMap.put(path.toString(), declaredMethod);
                         }
+
                     }
                 }
             }
@@ -115,7 +119,7 @@ public class DefaultPathResolver implements PathResolverHandler {
         try {
             instance = clz.newInstance();
         } catch (Exception e) {
-            throw new ResolverException("get instance field");
+            throw new ResolverException("get instance failed");
         }
         Method method = invokeMap.get(requestUri);
         if (null == method) {
