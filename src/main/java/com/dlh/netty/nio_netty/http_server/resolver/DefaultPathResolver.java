@@ -1,4 +1,4 @@
-package com.dlh.netty.nio_netty.http_server.path_resolver;
+package com.dlh.netty.nio_netty.http_server.resolver;
 
 import com.dlh.netty.common.exceptions.ResolverException;
 import com.dlh.netty.nio_netty.http_server.annotation.NettyController;

@@ -2,8 +2,8 @@ package com.dlh.netty.nio_netty.http_server;
 
 import com.alibaba.fastjson.JSON;
 import com.dlh.netty.common.exceptions.RequestException;
-import com.dlh.netty.nio_netty.http_server.path_resolver.DefaultPathResolver;
-import com.dlh.netty.nio_netty.http_server.path_resolver.PathResolverHandler;
+import com.dlh.netty.nio_netty.http_server.resolver.DefaultPathResolver;
+import com.dlh.netty.nio_netty.http_server.resolver.PathResolverHandler;
 import com.dlh.netty.nio_netty.http_server.request.RequestParseFactory;
 import com.dlh.netty.nio_netty.http_server.request.RequestParser;
 import io.netty.buffer.Unpooled;

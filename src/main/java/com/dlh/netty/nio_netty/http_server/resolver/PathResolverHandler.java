@@ -1,4 +1,4 @@
-package com.dlh.netty.nio_netty.http_server.path_resolver;
+package com.dlh.netty.nio_netty.http_server.resolver;
 
 
 import java.util.Map;

@@ -1,6 +1,6 @@
-package com.dlh.netty.nio_netty.http_server.path_resolver.binding;
+package com.dlh.netty.nio_netty.http_server.resolver.binding;
 
-import com.dlh.netty.nio_netty.http_server.path_resolver.MethodParameter;
+import com.dlh.netty.nio_netty.http_server.resolver.MethodParameter;
 
 /**
  * @author: dulihong
@@ -9,6 +9,7 @@ import com.dlh.netty.nio_netty.http_server.path_resolver.MethodParameter;
 public class ReferenceArgumentBinding implements HandlerArgumentBinding {
     @Override
     public void bind(MethodParameter methodParameter) {
-
+        Class<?> paramClass = methodParameter.getParamClass();
+        
     }
 }

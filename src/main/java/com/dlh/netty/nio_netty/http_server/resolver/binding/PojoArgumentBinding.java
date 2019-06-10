@@ -1,24 +1,20 @@
-package com.dlh.netty.nio_netty.http_server.path_resolver;
+package com.dlh.netty.nio_netty.http_server.resolver.binding;
 
 import com.dlh.netty.common.exceptions.ResolverException;
-import org.springframework.util.StringUtils;
+import com.dlh.netty.nio_netty.http_server.resolver.MethodParameter;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
  * @author: dulihong
- * @date: 2019/6/10 9:48
+ * @date: 2019/6/10 11:02
  */
-public class DefaultMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    @Override
-    public boolean supportsParameter(MethodParameter methodParameter) {
-        return !StringUtils.isEmpty(methodParameter.getRequestUri());
-    }
+public class PojoArgumentBinding implements HandlerArgumentBinding {
 
     @Override
     @SuppressWarnings("all")
-    public Object resolveArgument(MethodParameter methodParameter) {
+    public void bind(MethodParameter methodParameter) {
         Map<String, Object> requestParam = methodParameter.getRequestParam();
         Object instance = null;
         if (null != requestParam) {
@@ -30,12 +26,12 @@ public class DefaultMethodArgumentResolver implements HandlerMethodArgumentResol
                     method.invoke(instance, entry.getValue());
                 }
             } catch (Exception e) {
-                throw new ResolverException("resolver param error");
+                throw new ResolverException("pojo bind failed");
             }
-
         }
-        return instance;
+        methodParameter.setArgument(instance);
     }
+
 
     private String setMethod(String fieldName) {
         return "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
