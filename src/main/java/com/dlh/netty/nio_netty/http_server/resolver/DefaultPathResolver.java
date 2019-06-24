@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author: dulihong
  * @date: 2019/6/6 14:35
  */
-public class DefaultPathResolver implements PathResolverHandler{
+public class DefaultPathResolver implements PathResolverHandler {
 
     private String BASE_PACKAGE = "com.dlh.netty.nio_netty.http_server.resources";
 
@@ -133,7 +133,7 @@ public class DefaultPathResolver implements PathResolverHandler{
                 params[i] = requestParams.get(parameter.getName());
             }
         }
-        Object result = null;
+        Object result;
         try {
             result = method.invoke(instance, params);
         } catch (Exception e) {

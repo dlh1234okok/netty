@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Objects;
@@ -22,11 +23,14 @@ public class MethodParameter {
 
     private Map<String, Object> requestParam;
 
-    private Class<?> paramClass;
+    private Class<?>[] paramClass;
 
-    private Object argument;
+    private Class<?>[] referenceType = new Class[]{String.class,Integer.class,Double.class,Character.class,Float.class,Short.class};
+
+    private Method method;
 
     private static String controller_package;
+
 
     static {
 
@@ -86,19 +90,24 @@ public class MethodParameter {
         this.requestParam = requestParam;
     }
 
-    public Class<?> getParamClass() {
+    public Class<?>[] getParamClass() {
         return paramClass;
     }
 
-    public void setParamClass(Class<?> paramClass) {
+    public void setParamClass(Class<?>[] paramClass) {
         this.paramClass = paramClass;
     }
 
-    public Object getArgument() {
-        return argument;
+    public Class<?>[] getReferenceType() {
+        return referenceType;
     }
 
-    public void setArgument(Object argument) {
-        this.argument = argument;
+    public Method getMethod() {
+        return method;
     }
+
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+
 }

@@ -31,8 +31,10 @@ public class JdkDynamicProxy implements ArgumentProxy, InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        enhanceHandler.before();
-        return method.invoke(target, args);
+        enhanceHandler.before(method,args);
+        Object result = method.invoke(target, args);
+        enhanceHandler.after(result);
+        return result;
     }
 
 }
